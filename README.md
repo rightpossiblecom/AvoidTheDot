@@ -32,7 +32,15 @@ pnpm install
 pnpm dev
 ```
 
-Deploy with Vercel from the `landing_page` directory (see [Vercel CLI](https://vercel.com/docs/cli)).
+Deploy **only the marketing site** (not the Flutter app). From repo root:
+
+```bash
+cd landing_page
+pnpm install
+vercel --prod
+```
+
+In the Vercel dashboard, set **Root Directory** to `landing_page` if you connect this GitHub repo for automatic deploys.
 
 ## Links
 
