@@ -1,0 +1,13 @@
+SHORT DESCRIPTION (max 80 characters, 70 characters below):
+
+Dodge one dot. Survive longer. Minimal reflex arcade for quick breaks.
+
+FULL DESCRIPTION (plain text, no markdown):
+
+AvoidTheDot is a minimal reflex survival game built for short sessions. One bright dot bounces around the screen. You move with your finger to stay out of its way. Touch the dot and the run ends. The pace picks up the longer you last, so early seconds feel calm and later seconds feel intense.
+
+The goal is simple: beat your best survival time, stack risky close calls, and restart instantly when you slip. Your stats stay on the device. There is no account, no cloud save, and no personal data is collected. Perfect for coffee breaks, commutes, or a quick challenge before bed.
+
+How to play: open the app, tap Survive, keep your finger on the screen, and move smoothly to dodge. Use Settings to switch light or dark theme, turn vibration on or off, open the privacy policy or terms, or erase local data if you want a fresh start.
+
+Thank you for playing AvoidTheDot. Good luck staying ahead of the dot.
