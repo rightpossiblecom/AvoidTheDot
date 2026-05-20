@@ -49,11 +49,25 @@ class GameSimulation {
 
     final angle = _random.nextDouble() * math.pi * 2;
     enemyVel = Offset(math.cos(angle), math.sin(angle)) * _currentSpeed;
-    enemyPos = Offset(
-      cx + _random.nextDouble() * 40 - 20,
-      cy + _random.nextDouble() * 40 - 20,
-    );
-    enemyPos = _clampEnemy(enemyPos);
+
+    final minDistance = GameConstants.minSpawnSeparationPx;
+    Offset spawn = playerPos;
+    for (var i = 0; i < 12; i += 1) {
+      final candidate = Offset(
+        _bounds.left + _random.nextDouble() * _bounds.width,
+        _bounds.top + _random.nextDouble() * _bounds.height,
+      );
+      if ((candidate - playerPos).distance >= minDistance) {
+        spawn = candidate;
+        break;
+      }
+    }
+
+    if ((spawn - playerPos).distance < minDistance) {
+      spawn = _clampEnemy(playerPos + Offset(minDistance, 0));
+    }
+
+    enemyPos = _clampEnemy(spawn);
   }
 
   Rect _computeBounds(Size playfieldSize) {
@@ -82,11 +96,7 @@ class GameSimulation {
     );
   }
 
-  void update(
-    double dt,
-    Offset? pointerLocal,
-    Size playfieldSize,
-  ) {
+  void update(double dt, Offset? pointerLocal, Size playfieldSize) {
     if (isGameOver) return;
 
     _bounds = _computeBounds(playfieldSize);
@@ -101,9 +111,10 @@ class GameSimulation {
 
     elapsedSec += dt;
 
-    _currentSpeed = (GameConstants.baseEnemySpeed +
-            elapsedSec * GameConstants.speedRampPerSecond)
-        .clamp(0.0, GameConstants.maxEnemySpeed);
+    _currentSpeed =
+        (GameConstants.baseEnemySpeed +
+                elapsedSec * GameConstants.speedRampPerSecond)
+            .clamp(0.0, GameConstants.maxEnemySpeed);
 
     if (enemyVel.distance > 0) {
       final dir = enemyVel / enemyVel.distance;

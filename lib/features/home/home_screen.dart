@@ -62,119 +62,134 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ],
       ),
-      body: SafeArea(
-        child: Consumer<HomeViewModel>(
-          builder: (context, home, _) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(height: 12),
-                  Center(
-                    child: Image.asset(
-                      'assets/app_logo.png',
-                      width: 88,
-                      height: 88,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Stay ahead of the dot.',
-                    textAlign: TextAlign.center,
-                    style: textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'One bouncing threat. Move smoothly. Survive as long as you can.',
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      height: 1.45,
-                    ),
-                  ),
-                  const SizedBox(height: 28),
-                  _PreviewOrbit(
-                    controller: _preview,
-                    colorScheme: colorScheme,
-                  ),
-                  const SizedBox(height: 24),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Your best',
-                            style: textTheme.titleMedium?.copyWith(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          _StatRow(
-                            label: 'Longest survival',
-                            value: home.bestTimeLabel,
-                            colorScheme: colorScheme,
-                            textTheme: textTheme,
-                          ),
-                          _StatRow(
-                            label: 'Best close-call streak',
-                            value: home.longestNearMissStreak > 0
-                                ? '${home.longestNearMissStreak}'
-                                : '—',
-                            colorScheme: colorScheme,
-                            textTheme: textTheme,
-                          ),
-                          _StatRow(
-                            label: 'Most close calls (one run)',
-                            value: home.bestNearMissCount > 0
-                                ? '${home.bestNearMissCount}'
-                                : '—',
-                            colorScheme: colorScheme,
-                            textTheme: textTheme,
-                          ),
-                          if (home.totalRuns > 0)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: Text(
-                                'Runs played: ${home.totalRuns}',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurfaceVariant,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/unsplash/hero_01.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              color: colorScheme.surface.withValues(alpha: 0.86),
+            ),
+          ),
+          SafeArea(
+            child: Consumer<HomeViewModel>(
+              builder: (context, home, _) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 12),
+                      Center(
+                        child: Image.asset(
+                          'assets/app_logo.png',
+                          width: 88,
+                          height: 88,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Stay ahead of the dot.',
+                        textAlign: TextAlign.center,
+                        style: textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: colorScheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'One bouncing threat. Move smoothly. Survive as long as you can.',
+                        textAlign: TextAlign.center,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                          height: 1.45,
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                      _PreviewOrbit(
+                        controller: _preview,
+                        colorScheme: colorScheme,
+                      ),
+                      const SizedBox(height: 24),
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Your best',
+                                style: textTheme.titleMedium?.copyWith(
+                                  color: colorScheme.onSurface,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  FilledButton(
-                    onPressed: () {
-                      debugPrint('[AvoidTheDot] HomeScreen: start game');
-                      Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder: (_) => const GameScreen(),
+                              const SizedBox(height: 16),
+                              _StatRow(
+                                label: 'Longest survival',
+                                value: home.bestTimeLabel,
+                                colorScheme: colorScheme,
+                                textTheme: textTheme,
+                              ),
+                              _StatRow(
+                                label: 'Best close-call streak',
+                                value: home.longestNearMissStreak > 0
+                                    ? '${home.longestNearMissStreak}'
+                                    : '—',
+                                colorScheme: colorScheme,
+                                textTheme: textTheme,
+                              ),
+                              _StatRow(
+                                label: 'Most close calls (one run)',
+                                value: home.bestNearMissCount > 0
+                                    ? '${home.bestNearMissCount}'
+                                    : '—',
+                                colorScheme: colorScheme,
+                                textTheme: textTheme,
+                              ),
+                              if (home.totalRuns > 0)
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    'Runs played: ${home.totalRuns}',
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
-                      );
-                    },
-                    style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: colorScheme.primary,
-                      foregroundColor: colorScheme.onPrimary,
-                    ),
-                    child: const Text('Survive'),
+                      ),
+                      const Spacer(),
+                      FilledButton(
+                        onPressed: () {
+                          debugPrint('[AvoidTheDot] HomeScreen: start game');
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const GameScreen(),
+                            ),
+                          );
+                        },
+                        style: FilledButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          backgroundColor: colorScheme.primary,
+                          foregroundColor: colorScheme.onPrimary,
+                        ),
+                        child: const Text('Survive'),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -222,10 +237,7 @@ class _StatRow extends StatelessWidget {
 }
 
 class _PreviewOrbit extends StatelessWidget {
-  const _PreviewOrbit({
-    required this.controller,
-    required this.colorScheme,
-  });
+  const _PreviewOrbit({required this.controller, required this.colorScheme});
 
   final AnimationController controller;
   final ColorScheme colorScheme;
@@ -250,9 +262,7 @@ class _PreviewOrbit extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: colorScheme.outlineVariant,
-                    ),
+                    border: Border.all(color: colorScheme.outlineVariant),
                   ),
                   child: Stack(
                     children: [
@@ -267,7 +277,9 @@ class _PreviewOrbit extends StatelessWidget {
                             color: colorScheme.primary,
                             boxShadow: [
                               BoxShadow(
-                                color: colorScheme.primary.withValues(alpha: 0.45),
+                                color: colorScheme.primary.withValues(
+                                  alpha: 0.45,
+                                ),
                                 blurRadius: 12,
                               ),
                             ],

@@ -15,6 +15,9 @@ class GameConstants {
 
   static const double nearMissCooldownSec = 0.4;
 
+  /// Minimum distance between player and enemy at spawn.
+  static const double minSpawnSeparationPx = 90;
+
   /// Cap per-frame dt to avoid huge jumps after backgrounding.
   static const double maxDeltaSec = 1 / 30;
 }

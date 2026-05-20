@@ -59,10 +59,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
     final pulse = _sim.nearMissPulseSec;
     final sm = _settingsVm;
-    if (sm != null &&
-        pulse > 0 &&
-        _prevNearPulse <= 0 &&
-        sm.hapticsEnabled) {
+    if (sm != null && pulse > 0 && _prevNearPulse <= 0 && sm.hapticsEnabled) {
       HapticFeedback.selectionClick();
     }
     _prevNearPulse = pulse;
@@ -252,6 +249,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             child: Stack(
               fit: StackFit.passthrough,
               children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/unsplash/game_bg_01.jpg',
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 RepaintBoundary(
                   child: CustomPaint(
                     size: size,
@@ -296,17 +299,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 }
 
 class _GamePainter extends CustomPainter {
-  _GamePainter({
-    required this.simulation,
-    required this.colorScheme,
-  });
+  _GamePainter({required this.simulation, required this.colorScheme});
 
   final GameSimulation simulation;
   final ColorScheme colorScheme;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final bg = Paint()..color = colorScheme.surface;
+    final bg = Paint()..color = colorScheme.surface.withValues(alpha: 0.7);
     canvas.drawRect(Offset.zero & size, bg);
 
     final inset = GameConstants.playfieldPadding;
@@ -333,7 +333,11 @@ class _GamePainter extends CustomPainter {
       final glow = Paint()
         ..color = colorScheme.secondary.withValues(alpha: 0.18 * pulse)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 24);
-      canvas.drawCircle(simulation.enemyPos, GameConstants.enemyRadiusPx + 14, glow);
+      canvas.drawCircle(
+        simulation.enemyPos,
+        GameConstants.enemyRadiusPx + 14,
+        glow,
+      );
     }
 
     final enemyPaint = Paint()
@@ -356,14 +360,9 @@ class _GamePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.5
       ..color = colorScheme.tertiary;
-    canvas.drawCircle(
-      simulation.playerPos,
-      GameConstants.playerRadiusPx,
-      ring,
-    );
+    canvas.drawCircle(simulation.playerPos, GameConstants.playerRadiusPx, ring);
 
-    final fill = Paint()
-      ..color = colorScheme.tertiary.withValues(alpha: 0.14);
+    final fill = Paint()..color = colorScheme.tertiary.withValues(alpha: 0.14);
     canvas.drawCircle(
       simulation.playerPos,
       GameConstants.playerRadiusPx * 0.78,
