@@ -7,7 +7,7 @@ class AppLinks {
 
   /// Replace after your Play listing is published.
   static const String playStoreListing =
-      'https://play.google.com/store/apps/details?id=com.avoidthedot.app';
+      'https://play.google.com/store/apps/details?id=com.avoidthedot.game';
 
   static const String feedbackEmail = 'mailto:support@avoidthedot.app';
 }
